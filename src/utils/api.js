@@ -6,7 +6,7 @@ const api = (() => {
   }
 
   function getAccessToken() {
-    localStorage.getItem('accessToken');
+    return localStorage.getItem('accessToken');
   }
 
   async function _fetchWithAuth(url, options = {}) {
@@ -73,10 +73,8 @@ const api = (() => {
     const response = await _fetchWithAuth(`${BASE_URL}/users/me`);
 
     const responseJson = await response.json();
-    const { status, message } = responseJson;
 
-    console.log(`cek statusnya: ${status}`);
-    console.log(`cek messagenya: ${message}`);
+    const { status, message } = responseJson;
 
     if (status !== 'success') {
       throw new Error(message);

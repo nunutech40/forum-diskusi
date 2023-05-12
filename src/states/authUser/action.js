@@ -30,7 +30,6 @@ function asyncSetAuthUser({ email, password }) {
     try {
       // eslint-disable-next-line max-len
       const token = await api.login({ email, password }); // mendapatkan token dari function login, yang fetch api login
-      console.log(`cek token: ${token}`);
       api.putAccessToken(token); // save token ke localstorage
       // eslint-disable-next-line max-len
       const authUser = await api.getOwnProfile(); // mendapatkan authUser dg mengisinya dari function getownprofile yg return user
