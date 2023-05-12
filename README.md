@@ -53,6 +53,25 @@ npx eslint --init
 ```
 
 
+### Redux - Toolkit
+**Install**
+```bash
+npm install @reduxjs/toolkit
+```
+
+### REACT - REDUX
+**Install**
+```bash
+npm install react-redux
+```
+
+### Redux Loadingbar
+**Install**
+```bash
+npm install react-redux-loading-bar
+```
+
+
 ## Instalasi Project
 1. Clone repositori ini:
 

@@ -1,6 +1,14 @@
 const api = (() => {
   const BASE_URL = 'https://forum-api.dicoding.dev/v1';
 
+  function putAccessToken(token) {
+    localStorage.setItem('accessToken', token);
+  }
+
+  function getAccessToken() {
+    localStorage.getItem('accessToken');
+  }
+
   async function _fetchWithAuth(url, options = {}) {
     return fetch(url, {
       ...options,
@@ -9,14 +17,6 @@ const api = (() => {
         Authorization: `Bearer ${getAccessToken()}`,
       },
     });
-  }
-
-  function putAccessToken(token) {
-    localStorage.setItem('accessToken', token);
-  }
-
-  function getAccessToken() {
-    localStorage.getItem('accessToken');
   }
 
   // async register
@@ -45,14 +45,14 @@ const api = (() => {
     return user;
   }
 
-  async function login({ id, password }) {
+  async function login({ email, password }) {
     const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id,
+        email,
         password,
       }),
     });
@@ -91,6 +91,6 @@ const api = (() => {
     login,
     getOwnProfile,
   };
-});
+})();
 
 export default api;
