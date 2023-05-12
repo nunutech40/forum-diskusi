@@ -20,15 +20,15 @@ const api = (() => {
   }
 
   // async register
-  async function register({ fullName, name, password }) {
-    const response = await fetch(`${BASE_URL}/users`, {
+  async function register({ name, email, password }) {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        fullName,
         name,
+        email,
         password,
       }),
     });
@@ -74,6 +74,9 @@ const api = (() => {
 
     const responseJson = await response.json();
     const { status, message } = responseJson;
+
+    console.log(`cek statusnya: ${status}`);
+    console.log(`cek messagenya: ${message}`);
 
     if (status !== 'success') {
       throw new Error(message);

@@ -1,13 +1,14 @@
+/* eslint-disable no-alert */
 import api from '../../utils/api';
 
 const ActionType = {
   RECEIVE_USERS: 'RECEIVE_USERS',
 };
 
-function asyncRegisterUser({ fullName, email, password }) {
+function asyncRegisterUser({ name, email, password }) {
   return async () => {
     try {
-      await api.register({ fullName, email, password });
+      await api.register({ name, email, password });
     } catch (error) {
       alert(error.message);
     }
