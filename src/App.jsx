@@ -6,6 +6,8 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import RegisterPage from './pages/RegisterPage';
 import { asyncPreloadProcess } from './states/isPreload/action';
+import { asyncUnsetAuthUser } from './states/authUser/action';
+import Navigation from './components/Navigation';
 
 function App() {
   const {
@@ -19,6 +21,11 @@ function App() {
     // @TODO: dispatch async action to preload app
     dispatch(asyncPreloadProcess());
   }, [dispatch]);
+
+  const onSignOut = () => {
+    // @TODO: dispatch async action to sign out
+    dispatch(asyncUnsetAuthUser());
+  };
 
   if (isPreload) {
     return null;
@@ -43,6 +50,7 @@ function App() {
     <>
       <Loading />
       <div>
+        <Navigation authUser={authUser} signOut={onSignOut} />
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
