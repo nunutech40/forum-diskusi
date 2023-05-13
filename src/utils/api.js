@@ -85,12 +85,59 @@ const api = (() => {
     return user;
   }
 
+  async function getAllUsers() {
+    const response = await fetch(`${BASE_URL}/users`);
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+    const { data: { users } } = responseJson;
+
+    return users;
+  }
+
+  async function getAllDiscuss() {
+    const response = await fetch(`${BASE_URL}/threads`);
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    const { data: { threads } } = responseJson;
+
+    return threads;
+  }
+
+  async function getDiscussDetail(threadId) {
+    const response = await (`${BASE_URL}/threads/${threadId}`);
+    const responseJson = await response.json;
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    const { data: { detailThread } } = responseJson;
+
+    return detailThread;
+  }
+
   return {
     putAccessToken,
     getAccessToken,
     register,
     login,
     getOwnProfile,
+    getAllUsers,
+    getAllDiscuss,
+    getDiscussDetail,
   };
 })();
 
