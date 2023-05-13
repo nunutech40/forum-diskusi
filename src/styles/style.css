@@ -1,73 +1,215 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    --accent-color: #00796b;
-    --foreground-color: #0F1419;
-    --background-color: white;
-    --gray-dark-color: #66757F;
-    --gray-light-color: #edeff1;
+  --accent-color: #00796b;
+  --foreground-color: #0F1419;
+  --background-color: white;
+  --gray-dark-color: #66757F;
+  --gray-light-color: #edeff1;
 }
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    color: var(--foreground-color);
-    background-color: var(--background-color);
+  font-family: 'Open Sans', sans-serif;
+  color: var(--foreground-color);
+  background-color: var(--background-color);
 }
 
 .loading {
-    position: sticky;
-    top: 0;
+  position: sticky;
+  top: 0;
 }
 
 /* item discuss/threads */
 .discuss-item {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
 }
 
 .discuss-item-title {
-    margin: 0 0 10px 0;
+  margin: 0 0 10px 0;
 }
 
 .discuss-item-body {
-    font-size: 14px;
-    color: #555;
+  font-size: 14px;
+  color: #555;
 }
 
 .discuss-item-category {
-    font-size: 12px;
-    color: #999;
+  font-size: 12px;
+  color: #999;
 }
 
 .discuss-item-date {
-    font-size: 12px;
-    color: #999;
+  font-size: 12px;
+  color: #999;
 }
-
 /* navigation */
 .app-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f8f8f8;
-    border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #1f4037;
+  border-bottom: 1px solid #4c6651;
 }
 
 .app-nav-title {
-    font-size: 1.5em;
-    color: #333;
+  font-size: 1.5em;
+  color: #ffffff;
 }
 
 .app-nav-user {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
 }
 
-/*  */
+.user-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Changed from 0 */
+  right: 0;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+  color: #0F1419;
+}
+
+.dropdown-menu li {
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  color: #4c6651;
+}
+
+.context-menu {
+  position: absolute;
+  top: 100%; /* Changed from 0 */
+  right: 0;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.context-menu button {
+  background-color: #1f4037;
+  color: #ffffff;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.context-menu button:hover {
+  background-color: #4c6651;
+}
+
+
+/* login-register.css */
+.login-page, .register-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(to right, #1f4037, #99f2c8);
+}
+
+.login-page__main, .register-page__main {
+  width: 400px;
+  padding: 2em;
+  border-radius: 5px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  position: relative;
+}
+
+.login-page__main:before, .register-page__main:before {
+  content: "";
+  position: absolute;
+  top: -2em;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3em;
+  color: #ffffff;
+  z-index: -1;
+}
+
+.login-page__main p, .register-page__main p {
+  margin-top: 1em;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.login-page__main a, .register-page__main a {
+  color: #1f4037;
+  text-decoration: none;
+}
+
+.login-page__main a:hover, .register-page__main a:hover {
+  color: #4c6651;
+  text-decoration: underline;
+}
+
+/* login-register.css */
+
+.login-input, .register-input {
+  display: flex;
+  flex-direction: column;
+  gap: 1em; 
+}
+
+.login-input input, .register-input input,
+.login-input button, .register-input button {
+  width: 100%;
+  padding: 0.8em 1em;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+}
+
+.login-input button, .register-input button {
+  color: #ffffff;
+  background-color: #1f4037;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-input button:hover, .register-input button:hover {
+  background-color: #4c6651;
+}
+
+.login-input .icon, .register-input .icon {
+  position: absolute;
+  top: 0.7em;
+  right: 0.7em;
+  color: #cccccc;
+}
+
+.login-input .input-group, .register-input .input-group {
+  position: relative;
+}
+
+.login-input .input-group .icon, .register-input .input-group .icon {
+  position: absolute;
+  top: 0.8em;
+  left: 0.8em;
+  color: #cccccc;
+}
+
+.login-input .input-group input, .register-input .input-group input {
+  padding-left: 2.5em;
+}

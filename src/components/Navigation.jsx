@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 function Navigation({ authUser, signOut }) {
   // eslint-disable-next-line no-unused-vars
-  const { id, photo, name } = authUser;
+  const { id, avatar, name } = authUser;
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [contextMenuOpen, setContextMenuOpen] = useState(false);
 
@@ -24,12 +24,13 @@ function Navigation({ authUser, signOut }) {
       <div className="app-nav-title">Forum Diskusi</div>
       <div
         className="app-nav-user"
+        style={{ position: 'relative' }}
         onClick={() => setDropdownOpen(!dropdownOpen)}
         onKeyPress={() => setDropdownOpen(!dropdownOpen)}
         role="button"
         tabIndex={0}
       >
-        <span role="img" aria-label="User">👤</span>
+        <img src={avatar} alt="User avatar" className="user-avatar" />
         {' '}
         <span
           onContextMenu={(e) => {
