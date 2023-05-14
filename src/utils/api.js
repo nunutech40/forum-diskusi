@@ -90,9 +90,11 @@ const api = (() => {
     const responseJson = await response.json();
 
     const { status, message } = responseJson;
+
     if (status !== 'success') {
       throw new Error(message);
     }
+
     const { data: { users } } = responseJson;
 
     return users;
@@ -129,6 +131,32 @@ const api = (() => {
     return detailThread;
   }
 
+  async function createThread({ title, body, category = '' }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title,
+        body,
+        category,
+      }),
+    });
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    const { data: { thread } } = responseJson;
+
+    return thread;
+  }
+
   return {
     putAccessToken,
     getAccessToken,
@@ -138,6 +166,7 @@ const api = (() => {
     getAllUsers,
     getAllDiscuss,
     getDiscussDetail,
+    createThread,
   };
 })();
 
