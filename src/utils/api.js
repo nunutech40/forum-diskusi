@@ -127,7 +127,6 @@ const api = (() => {
     }
 
     const { data: { detailThread } } = responseJson;
-    console.log('cek threaddet in api', detailThread);
 
     return detailThread;
   }

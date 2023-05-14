@@ -5,6 +5,7 @@ const ActionType = {
   GET_ALL_DISCUSS: 'GET_ALL_DISCUSS',
   DO_LIKE_THREAD: 'DO_LIKE_THREAD',
   DO_UNLIKE_THREAD: 'DO_UNLIKE_THREAD',
+  DO_ADD_THREAD: 'DO_ADD_THREAD',
 };
 
 function getAllDiscussActionCreator(threads) {
@@ -12,6 +13,15 @@ function getAllDiscussActionCreator(threads) {
     type: ActionType.GET_ALL_DISCUSS,
     payload: {
       threads,
+    },
+  };
+}
+
+function addThreadActionCreator(thread) {
+  return {
+    type: ActionType.DO_ADD_THREAD,
+    payload: {
+      thread,
     },
   };
 }
@@ -71,10 +81,28 @@ function asyncDoUnlikeThread(threadId) {
   };
 }
 
+function asyncAddThread(title, body, category) {
+  return async (dispatch) => {
+    dispatch(showLoading());
+
+    dispatch(addThreadActionCreator({ title, body, category }));
+    try {
+      await api.createThread(title, body, category);
+    } catch (error) {
+      // eslint-disable-next-line no-alert
+      alert(error.message);
+      dispatch(addThreadActionCreator({ title, body, category }));
+    }
+    dispatch(hideLoading());
+  };
+}
+
 export {
   ActionType,
+  addThreadActionCreator,
   getAllDiscussActionCreator,
   doLikeThreadActionCreator,
   asyncDoLikeThread,
   asyncDoUnlikeThread,
+  asyncAddThread,
 };
