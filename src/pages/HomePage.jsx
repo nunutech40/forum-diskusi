@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { asyncGetAllDiscussAndUsers } from '../states/shared/action';
 import ThreadList from '../components/ThreadList';
-import { asyncDoLikeThread } from '../states/threads/action';
+import { asyncDoLikeThread, asyncDoUnlikeThread } from '../states/threads/action';
 
 function HomePage() {
   const {
@@ -27,9 +27,13 @@ function HomePage() {
     dispatch(asyncDoLikeThread({ threadId }));
   };
 
+  const doUnlike = (threadId) => {
+    dispatch(asyncDoUnlikeThread({ threadId }));
+  };
+
   return (
     <section className="home-page">
-      <ThreadList threads={threadList} doLike={doLike} />
+      <ThreadList threads={threadList} doLike={doLike} doUnlike={doUnlike} />
     </section>
   );
 }

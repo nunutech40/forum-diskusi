@@ -15,9 +15,8 @@ function DiscussItem({
   downVotesBy,
   totalComments,
   user,
-  authUser,
-  authUserId,
   doLike,
+  doUnlike,
 }) {
   const userName = user ? user.name : '';
   const likeCount = upVotesBy.length;
@@ -26,6 +25,11 @@ function DiscussItem({
   const doLikeClick = (event) => {
     event.stopPropagation();
     doLike(id);
+  };
+
+  const doUnlikeClick = (event) => {
+    event.stopPropagation();
+    doUnlike(id);
   };
 
   return (
@@ -49,7 +53,7 @@ function DiscussItem({
           {' '}
           {likeCount}
         </button>
-        <button className="unlike-button" onClick={downVotesBy}>
+        <button className="unlike-button" onClick={doUnlikeClick}>
           <BiDislike className="like-icon" />
           Unlike
           {' '}
@@ -92,7 +96,6 @@ const threadItemShape = {
 
 DiscussItem.propTypes = {
   ...threadItemShape,
-  authUserId: PropTypes.string.isRequired,
   doLike: PropTypes.func,
 };
 

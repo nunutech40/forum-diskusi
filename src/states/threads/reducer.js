@@ -18,6 +18,20 @@ function threadsReduces(threads = [], action = {}) {
         }
         return thread;
       });
+    case ActionType.DO_UNLIKE_THREAD:
+      return threads.map((thread) => {
+        const { threadId } = action.payload.threadId;
+        if (thread.id === threadId) {
+          const userDownVoted = thread.downVotesBy.includes(action.payload.userId);
+          return {
+            ...thread,
+            downVotesBy: userDownVoted
+              ? thread.downVotesBy.filter((id) => id !== action.payload.userId)
+              : [...thread.downVotesBy, action.payload.userId],
+          };
+        }
+        return thread;
+      });
     default:
       return threads;
   }
