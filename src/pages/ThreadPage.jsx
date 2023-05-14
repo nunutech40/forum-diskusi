@@ -2,9 +2,8 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { asyncThreadDetailById } from '../states/threadDetail/action';
+import { asyncThreadDetailById, asyncDoLikeThreadById, asyncDoUnlikeThreadById } from '../states/threadDetail/action';
 import ThreadDetail from '../components/ThreadDetail';
-import { asyncDoLikeThread, asyncDoUnlikeThread } from '../states/threads/action';
 
 function ThreadPage() {
   const { id } = useParams();
@@ -24,11 +23,11 @@ function ThreadPage() {
   }
 
   const doLike = (threadId) => {
-    dispatch(asyncDoLikeThread({ threadId }));
+    dispatch(asyncDoLikeThreadById({ threadId }));
   };
 
   const doUnlike = (threadId) => {
-    dispatch(asyncDoUnlikeThread({ threadId }));
+    dispatch(asyncDoUnlikeThreadById({ threadId }));
   };
 
   return (
