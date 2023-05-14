@@ -3,6 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BiLike, BiDislike, BiComment } from 'react-icons/bi';
+
 import { postedAt } from '../utils';
 
 function DiscussItem({
@@ -35,7 +36,7 @@ function DiscussItem({
   return (
     <div className="discuss-item">
       <h2 className="discuss-item-title">{title}</h2>
-      <p className="discuss-item-body">{body}</p>
+      <p className="discuss-item-body" dangerouslySetInnerHTML={{ __html: body }} />
       <p className="discuss-item-category">
         Category:
         {' '}
@@ -82,7 +83,7 @@ const userShape = {
 };
 
 const threadItemShape = {
-  threadId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
@@ -91,7 +92,6 @@ const threadItemShape = {
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   totalComments: PropTypes.number.isRequired,
   user: PropTypes.shape(userShape).isRequired,
-  authUser: PropTypes.string.isRequired,
 };
 
 DiscussItem.propTypes = {
