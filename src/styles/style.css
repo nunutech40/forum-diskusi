@@ -49,6 +49,24 @@ body {
   font-size: 12px;
   color: #999;
 }
+
+.discuss-item-likes {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.like-dislike {
+  display: flex;
+  gap: 10px; /* adjust this as per your need */
+}
+
+.comment-info {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* adjust this as per your need */
+}
+
 /* navigation */
 .app-nav {
   display: flex;

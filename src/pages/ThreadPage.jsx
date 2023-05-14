@@ -3,7 +3,8 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { asyncThreadDetailById } from '../states/threadDetail/action';
-import DiscussItem from '../components/DiscussItem';
+import ThreadDetail from '../components/ThreadDetail';
+import { asyncDoLikeThread, asyncDoUnlikeThread } from '../states/threads/action';
 
 function ThreadPage() {
   const { id } = useParams();
@@ -22,9 +23,17 @@ function ThreadPage() {
     return null;
   }
 
+  const doLike = (threadId) => {
+    dispatch(asyncDoLikeThread({ threadId }));
+  };
+
+  const doUnlike = (threadId) => {
+    dispatch(asyncDoUnlikeThread({ threadId }));
+  };
+
   return (
     <section className="detail-page">
-      <DiscussItem {...threadDetail} />
+      <ThreadDetail {...threadDetail} doLike={doLike} doUnlike={doUnlike} />
     </section>
   );
 }

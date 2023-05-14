@@ -1,5 +1,5 @@
 import React from 'react';
-import ThreadDetail from './ThreadDetail';
+import DiscussItem from './DiscussItem';
 
 // eslint-disable-next-line react/prop-types
 function ThreadList({ threads, doLike, doUnlike }) {
@@ -9,7 +9,7 @@ function ThreadList({ threads, doLike, doUnlike }) {
         // eslint-disable-next-line react/prop-types
         threads.map((thread) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
-          <ThreadDetail key={thread.id} {...thread} doLike={doLike} doUnlike={doUnlike} />
+          <DiscussItem key={thread.id} {...thread} doLike={doLike} doUnlike={doUnlike} />
         ))
       }
     </div>

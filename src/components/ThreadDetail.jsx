@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BiLike, BiDislike, BiComment } from 'react-icons/bi';
-import { useNavigate } from 'react-router-dom';
 import { postedAt } from '../utils';
 
-function DiscussItem({
+function ThreadDetail({
   id,
   title,
   body,
@@ -12,29 +11,18 @@ function DiscussItem({
   createdAt,
   upVotesBy,
   downVotesBy,
-  totalComments,
-  user,
+  comments,
+  owner,
   authUser,
   doLike,
   doUnlike,
 }) {
-  const navigate = useNavigate();
-  const userName = user ? user.name : '';
-  const userAvatar = user ? user.avatar : '';
+  const userName = owner ? owner.name : '';
+  const userAvatar = owner ? owner.avatar : '';
   const likeCount = upVotesBy.length;
   const unlikeCount = downVotesBy.length;
   const isThreadLiked = upVotesBy.includes(authUser);
   const isThreadDisliked = downVotesBy.includes(authUser);
-
-  const onThreadClick = () => {
-    navigate(`/thread/${id}`);
-  };
-
-  const onThreadPress = (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      navigate(`/thread/${id}`);
-    }
-  };
 
   const doLikeClick = (event) => {
     event.stopPropagation();
@@ -47,7 +35,7 @@ function DiscussItem({
   };
 
   return (
-    <div role="button" tabIndex={0} className="discuss-item" onClick={onThreadClick} onKeyDown={onThreadPress}>
+    <div role="button" tabIndex={0} className="discuss-item">
       <div className="discuss-item-user-photo">
         <img src={userAvatar} alt={userName} />
       </div>
@@ -70,27 +58,26 @@ function DiscussItem({
         {
           doLike && (
             <div className="discuss-item-likes">
-              <p>
+              <div className="like-dislike">
                 <button type="button" aria-label="like" onClick={doLikeClick}>
-                  { isThreadLiked ? <BiLike style={{ color: 'red' }} /> : <BiLike />}
+                  {isThreadLiked ? <BiLike style={{ color: 'red' }} /> : <BiLike />}
                 </button>
                 {' '}
                 {likeCount}
-              </p>
-              <p>
                 <button type="button" aria-label="unlike" onClick={doUnlikeClick}>
-                  { isThreadDisliked ? <BiDislike style={{ color: 'red' }} /> : <BiDislike />}
+                  {isThreadDisliked ? <BiDislike style={{ color: 'red' }} /> : <BiDislike />}
                 </button>
                 {' '}
                 {unlikeCount}
-              </p>
+              </div>
               <div className="comment-info">
                 <BiComment className="comment-icon" />
-                {totalComments}
+                {comments.length}
                 {' '}
                 Comments
               </div>
             </div>
+
           )
         }
       </div>
@@ -98,7 +85,7 @@ function DiscussItem({
   );
 }
 
-const userShape = {
+const ownerShape = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
@@ -113,18 +100,18 @@ const threadItemShape = {
   upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   totalComments: PropTypes.number.isRequired,
-  user: PropTypes.shape(userShape).isRequired,
+  owner: PropTypes.shape(ownerShape).isRequired,
 };
 
-DiscussItem.propTypes = {
+ThreadDetail.propTypes = {
   ...threadItemShape,
   doLike: PropTypes.func,
   doUnlike: PropTypes.func,
 };
 
-DiscussItem.defaultProps = {
+ThreadDetail.defaultProps = {
   doLike: null,
   doUnlike: null,
 };
 
-export default DiscussItem;
+export default ThreadDetail;

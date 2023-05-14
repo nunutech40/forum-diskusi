@@ -19,8 +19,7 @@ function DiscussItem({
   doUnlike,
 }) {
   const navigate = useNavigate();
-  const userName = user ? user.name : '';
-  const userAvatar = user ? user.avatar : '';
+  const userName = `Di Posting Oleh: ${user ? user.name : ''}`;
   const likeCount = upVotesBy.length;
   const unlikeCount = downVotesBy.length;
   const isThreadLiked = upVotesBy.includes(authUser);
@@ -48,42 +47,39 @@ function DiscussItem({
 
   return (
     <div role="button" tabIndex={0} className="discuss-item" onClick={onThreadClick} onKeyDown={onThreadPress}>
-      <div className="discuss-item-user-photo">
-        <img src={userAvatar} alt={userName} />
-      </div>
       <div className="discuss-item-detail">
         <header>
-          <div className="discuss-item-user-info">
-            <p className="discuss-item-user-name">{userName}</p>
-          </div>
-          <p className="discuss-item-date">{postedAt(createdAt)}</p>
-        </header>
-        <article>
-          <h2 className="discuss-item-title">{title}</h2>
-          <p className="discuss-item-body" dangerouslySetInnerHTML={{ __html: body }} />
           <p className="discuss-item-category">
             Category:
             {' '}
             <span className="category">{category}</span>
           </p>
+        </header>
+        <article>
+          <h2 className="discuss-item-title">{title}</h2>
+          <p className="discuss-item-body" dangerouslySetInnerHTML={{ __html: body }} />
         </article>
+        <div>
+          <div className="discuss-item-user-info">
+            <p className="discuss-item-date">{postedAt(createdAt)}</p>
+            <p className="discuss-item-user-name">{userName}</p>
+          </div>
+        </div>
         {
           doLike && (
             <div className="discuss-item-likes">
-              <p>
+              <div className="like-dislike">
                 <button type="button" aria-label="like" onClick={doLikeClick}>
-                  { isThreadLiked ? <BiLike style={{ color: 'red' }} /> : <BiLike />}
+                  {isThreadLiked ? <BiLike style={{ color: 'red' }} /> : <BiLike />}
                 </button>
                 {' '}
                 {likeCount}
-              </p>
-              <p>
                 <button type="button" aria-label="unlike" onClick={doUnlikeClick}>
-                  { isThreadDisliked ? <BiDislike style={{ color: 'red' }} /> : <BiDislike />}
+                  {isThreadDisliked ? <BiDislike style={{ color: 'red' }} /> : <BiDislike />}
                 </button>
                 {' '}
                 {unlikeCount}
-              </p>
+              </div>
               <div className="comment-info">
                 <BiComment className="comment-icon" />
                 {totalComments}
@@ -91,6 +87,7 @@ function DiscussItem({
                 Comments
               </div>
             </div>
+
           )
         }
       </div>
