@@ -6,11 +6,27 @@ import { BiLike, BiDislike, BiComment } from 'react-icons/bi';
 import { postedAt } from '../utils';
 
 function DiscussItem({
-  id, title, body, category, createdAt, upVotesBy, downVotesBy, totalComments, user, authUser,
+  id,
+  title,
+  body,
+  category,
+  createdAt,
+  upVotesBy,
+  downVotesBy,
+  totalComments,
+  user,
+  authUser,
+  authUserId,
+  doLike,
 }) {
   const userName = user ? user.name : '';
   const likeCount = upVotesBy.length;
   const unlikeCount = downVotesBy.length;
+
+  const doLikeClick = (event) => {
+    event.stopPropagation();
+    doLike(id);
+  };
 
   return (
     <div className="discuss-item">
@@ -27,22 +43,14 @@ function DiscussItem({
         <span className="date">{postedAt(createdAt)}</span>
       </p>
       <div className="discuss-item-actions">
-        <button className="like-button" onClick={upVotesBy}>
-          {upVotesBy.includes(authUser) ? (
-            <BiDislike className="like-icon" />
-          ) : (
-            <BiLike className="like-icon" />
-          )}
+        <button className="like-button" onClick={doLikeClick}>
+          <BiLike className="like-icon" />
           Like
           {' '}
           {likeCount}
         </button>
         <button className="unlike-button" onClick={downVotesBy}>
-          {downVotesBy.includes(authUser) ? (
-            <BiLike className="like-icon" />
-          ) : (
-            <BiDislike className="like-icon" />
-          )}
+          <BiDislike className="like-icon" />
           Unlike
           {' '}
           {unlikeCount}
@@ -69,8 +77,8 @@ const userShape = {
   avatar: PropTypes.string.isRequired,
 };
 
-DiscussItem.propTypes = {
-  id: PropTypes.string.isRequired,
+const threadItemShape = {
+  threadId: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
@@ -80,6 +88,16 @@ DiscussItem.propTypes = {
   totalComments: PropTypes.number.isRequired,
   user: PropTypes.shape(userShape).isRequired,
   authUser: PropTypes.string.isRequired,
+};
+
+DiscussItem.propTypes = {
+  ...threadItemShape,
+  authUserId: PropTypes.string.isRequired,
+  doLike: PropTypes.func,
+};
+
+DiscussItem.defaultProps = {
+  doLike: null,
 };
 
 export default DiscussItem;

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { asyncGetAllDiscussAndUsers } from '../states/shared/action';
 import ThreadList from '../components/ThreadList';
+import { asyncDoLikeThread } from '../states/threads/action';
 
 function HomePage() {
   const {
@@ -19,12 +20,16 @@ function HomePage() {
   const threadList = threads.map((thread) => ({
     ...thread,
     user: users.find((user) => user.id === thread.ownerId),
-    authUser: authUser.id,
+    authUserId: authUser.id,
   }));
+
+  const doLike = (threadId) => {
+    dispatch(asyncDoLikeThread({ threadId }));
+  };
 
   return (
     <section className="home-page">
-      <ThreadList threads={threadList} />
+      <ThreadList threads={threadList} doLike={doLike} />
     </section>
   );
 }
