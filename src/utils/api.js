@@ -117,8 +117,8 @@ const api = (() => {
   }
 
   async function getDiscussDetail(threadId) {
-    const response = await (`${BASE_URL}/threads/${threadId}`);
-    const responseJson = await response.json;
+    const response = await fetch(`${BASE_URL}/threads/${threadId}`);
+    const responseJson = await response.json();
 
     const { status, message } = responseJson;
 
@@ -127,6 +127,7 @@ const api = (() => {
     }
 
     const { data: { detailThread } } = responseJson;
+    console.log('cek threaddet in api', detailThread);
 
     return detailThread;
   }

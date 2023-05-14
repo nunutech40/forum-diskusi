@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loading from './components/Loading';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
+import ThreadPage from './pages/ThreadPage';
 import RegisterPage from './pages/RegisterPage';
 import { asyncPreloadProcess } from './states/isPreload/action';
 import { asyncUnsetAuthUser } from './states/authUser/action';
@@ -54,6 +55,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/thread/:id" element={<ThreadPage />} />
           </Routes>
         </main>
       </div>
