@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { BiLike, BiDislike, BiComment } from 'react-icons/bi';
 import { postedAt } from '../utils';
 import CommentList from './CommentList';
+import CommentInput from './CommentInput';
 
 function ThreadDetail({
   id,
@@ -17,6 +18,7 @@ function ThreadDetail({
   authUser,
   doLike,
   doUnlike,
+  addComment,
 }) {
   const userName = owner ? owner.name : '';
   const userAvatar = owner ? owner.avatar : '';
@@ -83,6 +85,7 @@ function ThreadDetail({
         }
         <div className="comment-section">
           <h3>Comments</h3>
+          <CommentInput addComment={addComment} />
           <CommentList comments={comments} doLike={doLike} doUnlike={doUnlike} />
         </div>
       </div>

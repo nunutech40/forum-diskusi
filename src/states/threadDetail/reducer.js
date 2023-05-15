@@ -27,6 +27,11 @@ function threadDetailReducer(threadDetail = null, action = {}) {
         // Remove the userId from upVotesBy if it exists there
         upVotesBy: threadDetail.upVotesBy.filter((id) => id !== action.payload.userId),
       };
+    case ActionType.DO_ADD_COMMENTS:
+      return {
+        ...threadDetail,
+        comments: [...threadDetail.comments, action.payload.comment],
+      };
     default:
       return threadDetail;
   }

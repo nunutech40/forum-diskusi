@@ -157,6 +157,32 @@ const api = (() => {
     return thread;
   }
 
+  async function createComments({ content }, threadId) {
+    console.log('cek getcontent:', content);
+    console.log('cek threadId:', threadId);
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        content,
+      }),
+    });
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    const { data: { comment } } = responseJson;
+
+    return comment;
+  }
+
   async function doLike({ threadId }) {
     const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/up-vote`, {
       method: 'POST',
@@ -211,6 +237,7 @@ const api = (() => {
     createThread,
     doLike,
     doUnLike,
+    createComments,
   };
 })();
 

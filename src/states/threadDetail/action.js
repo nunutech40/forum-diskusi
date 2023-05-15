@@ -5,6 +5,7 @@ const ActionType = {
   GET_THREAD_DETAIL_BYID: 'GET_THREAD_DETAIL_BYID',
   DO_LIKE_THREAD_BYID: 'DO_LIKE_THREAD_BYID',
   DO_UNLIKE_THREAD_BYID: 'DO_UNLIKE_THREAD_BYID',
+  DO_ADD_COMMENTS: 'DO_ADD_COMMENTS',
 };
 
 function getThreadDetailActionCreator(threadDetail) {
@@ -12,6 +13,15 @@ function getThreadDetailActionCreator(threadDetail) {
     type: ActionType.GET_THREAD_DETAIL_BYID,
     payload: {
       threadDetail,
+    },
+  };
+}
+
+function addCommentsctionCreator(comment) {
+  return {
+    type: ActionType.DO_ADD_COMMENTS,
+    payload: {
+      comment,
     },
   };
 }
@@ -86,6 +96,21 @@ function asyncDoUnlikeThreadById(threadId) {
   };
 }
 
+function asyncAddComment(getContent) {
+  return async (dispatch) => {
+    dispatch(showLoading());
+    const { content, id } = getContent;
+    try {
+      const comment = await api.createComments({ content }, id);
+      dispatch(addCommentsctionCreator(comment));
+    } catch (error) {
+      // eslint-disable-next-line no-alert
+      alert(error.message);
+    }
+    dispatch(hideLoading());
+  };
+}
+
 export {
   ActionType,
   getThreadDetailActionCreator,
@@ -94,4 +119,5 @@ export {
   doUnLikeThreadByIdActionCreator,
   asyncDoLikeThreadById,
   asyncDoUnlikeThreadById,
+  asyncAddComment,
 };

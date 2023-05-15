@@ -2,7 +2,9 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { asyncThreadDetailById, asyncDoLikeThreadById, asyncDoUnlikeThreadById } from '../states/threadDetail/action';
+import {
+  asyncThreadDetailById, asyncDoLikeThreadById, asyncDoUnlikeThreadById, asyncAddComment,
+} from '../states/threadDetail/action';
 import ThreadDetail from '../components/ThreadDetail';
 
 function ThreadPage() {
@@ -30,9 +32,18 @@ function ThreadPage() {
     dispatch(asyncDoUnlikeThreadById({ threadId }));
   };
 
+  const addComments = (content) => {
+    dispatch(asyncAddComment({ content, id }));
+  };
+
   return (
     <section className="detail-page">
-      <ThreadDetail {...threadDetail} doLike={doLike} doUnlike={doUnlike} />
+      <ThreadDetail
+        {...threadDetail}
+        doLike={doLike}
+        doUnlike={doUnlike}
+        addComment={addComments}
+      />
     </section>
   );
 }
