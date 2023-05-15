@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BiLike, BiDislike, BiComment } from 'react-icons/bi';
 import { postedAt } from '../utils';
+import CommentList from './CommentList';
 
 function ThreadDetail({
   id,
@@ -80,6 +81,10 @@ function ThreadDetail({
 
           )
         }
+        <div className="comment-section">
+          <h3>Comments</h3>
+          <CommentList comments={comments} doLike={doLike} doUnlike={doUnlike} />
+        </div>
       </div>
     </div>
   );
